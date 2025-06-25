@@ -1,1 +1,0 @@
-import{h as r}from"./ProjectionTransformation-C7dqAE7C.js";import{fromGeometry as m,fromGeometryToGXGeometry as n}from"./jsonConverter-CLXBz6ny.js";import"./SimpleGeometryCursor-B92kdZ15.js";import"./index-Byn_dG8u.js";const s=new r;function p(t,o){const e=m(t);return s.execute(e.getGeometry(),n(o),e.getSpatialReference())}export{p as execute};
