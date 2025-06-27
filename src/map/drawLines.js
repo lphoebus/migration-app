@@ -6,6 +6,7 @@ import Graphic from "@arcgis/core/Graphic";
  * @param {number} minValue - Minimum value for filtering.
  * @param {Object} appState - Centralized app state (must have linesLayer, pointsLayer).
  */
+
 export function drawLines(features, minValue, appState) {
   appState.linesLayer.removeAll();
   appState.pointsLayer.removeAll();
@@ -122,7 +123,7 @@ export function drawLines(features, minValue, appState) {
           },
           popupTemplate: {
             title: "{o_cz_name}, {o_state_name}",
-            content: `<br/>Of the individuals that moved between childhood (measured by location at age 16) and young adulthood (location at age 26), <b>${(pr_d_o * 100).toFixed(1)}%</b> (${n.toLocaleString()}) of young adults stayed in the <b>{o_cz_name} Commuting Zone.</b>.`,
+            content: `<br/>Of the individuals that moved between childhood (measured by location at age 16) and young adulthood (location at age 26), <b>${(pr_d_o * 100).toFixed(1)}%</b> (${n.toLocaleString()}) of young adults stayed in the <b>{o_cz_name} Commuting Zone.</b>`,
           }
         });
         pointGraphics.push(graphic);
@@ -132,4 +133,5 @@ export function drawLines(features, minValue, appState) {
   // add all graphics at the same time
   appState.linesLayer.addMany(lineGraphics);
   appState.pointsLayer.addMany(pointGraphics);
+  return lineGraphics.length;
 }

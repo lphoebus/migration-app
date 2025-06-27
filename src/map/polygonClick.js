@@ -1,4 +1,5 @@
 import FeatureLayer from "@arcgis/core/layers/FeatureLayer";
+import { drawLines } from "./drawLines.js";
 
 /**
  * Handles clicking on a polygon feature, queries migration data, and updates app state.
@@ -40,8 +41,9 @@ export async function handlePolygonClick(polygonGraphic, appState) {
   try {
     const result = await migrationLayer.queryFeatures(migrationQuery);
     appState.allRelatedFeatures = result.features;
-    // Optionally, you can trigger drawing lines here if desired:
-    // drawLines(appState.allRelatedFeatures, appState.minValue, appState);
+
+    // Optionally preview lines on polygon click (no message logic here)
+    drawLines(appState.allRelatedFeatures, appState.minValue, appState);
   } catch (error) {
     console.error("Error querying centroid features:", error);
   }

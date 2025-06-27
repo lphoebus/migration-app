@@ -24,6 +24,7 @@ import { setupSliderControls } from "./ui/slider.js";
 import { setupActionBar } from "./ui/actionBar.js";
 
 
+
 const mapEl = document.getElementById("mapEl");
 
 // --- Centralized App State ---
@@ -105,6 +106,8 @@ mapEl.addEventListener("arcgisViewReadyChange", async (evt) => {
   setupHighlightOnClick(appState.alaskaView, appState);
   setupHighlightOnClick(appState.hawaiiView, appState);
 
+  document.getElementById("about-dialog").open = true;
+
   document.getElementById("info-action").addEventListener("click", () => {
     document.getElementById("about-dialog").open = true;
   });
@@ -113,4 +116,40 @@ mapEl.addEventListener("arcgisViewReadyChange", async (evt) => {
   });
 
 });
+
+export function showSliderMessage(msg) {
+  const msgDiv = document.getElementById("slider-message");
+  if (msgDiv) {
+    msgDiv.textContent = msg;
+    msgDiv.style.display = "block";
+  }
+}
+
+export function hideSliderMessage() {
+  const msgDiv = document.getElementById("slider-message");
+  if (msgDiv) {
+    msgDiv.style.display = "none";
+  }
+}
+
+const drawLinesBtn = document.getElementById("draw-lines-btn");
+if (drawLinesBtn) {
+  drawLinesBtn.addEventListener("click", () => {
+    // Assuming appState.allRelatedFeatures is set by the last polygon click
+    const linesDrawn = drawLines(appState.allRelatedFeatures, appState.minValue, appState);
+    if (linesDrawn === 0) {
+      showSliderMessage("Move the slider lower to see lines drawn for this area.");
+    } else {
+      hideSliderMessage();
+    }
+  });
+}
+
+// Hide the message when the slider is moved
+const slider = document.getElementById("slider-left");
+if (slider) {
+  slider.addEventListener("calciteSliderInput", () => {
+    hideSliderMessage();
+  });
+}
 

@@ -44,6 +44,7 @@
           <label>
             <calcite-slider id="slider-left" min="0" max="10000" step="1000" ticks="1000" value="500" label-handles></calcite-slider>
           </label>
+          <div id="slider-message"></div>
           <div style="margin-top: 1em;">
             <calcite-button id="draw-lines-btn" icon-start="pencil">Draw Lines</calcite-button>
             <calcite-button id="clear-lines-btn" appearance="outline" icon-start="erase">Clear Lines</calcite-button>
@@ -75,12 +76,12 @@
     </calcite-panel> 
     </calcite-shell-panel>
 
-    <calcite-dialog id="about-dialog" kind="info" width="m">
-      <div slot="header">About This App</div>
+    <calcite-dialog id="about-dialog" kind="info" width="m" heading="About this App" icon="information" close-button>
       <div>
         <p>
-          <b>Economic Mobility and Young Adult Migration App</b><br>
-          This application visualizes migration flows between commuting zones, allowing you to explore neighborhood characteristics and migration patterns interactively.<br><br>
+          <b>Economic Mobility and Young Adult Migration</b><br><br>
+          This application visualizes migration flows between commuting zones, allowing you to explore neighborhood characteristics and migration patterns interactively.
+          For more information on these maps or layers, visit the <a href="https://livingatlas.arcgis.com/en/browse/?q=economic%20mobility#q=economic+mobility&d=2" target="_blank" rel="noopener">Living Atlas</a> or browse additional content in the <a href="https://arcg.is/aSrmr2" target="_blank" rel="noopener">Economic Mobility Content</a> group.<br><br>
           Use the tools on the left to filter, explore, and analyze young adult migration patterns across the United States.
         </p>
       </div>
