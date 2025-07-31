@@ -147,9 +147,24 @@ if (drawLinesBtn) {
 
 // Hide the message when the slider is moved
 const slider = document.getElementById("slider-left");
-if (slider) {
-  slider.addEventListener("calciteSliderInput", () => {
-    hideSliderMessage();
+const resetSliderBtn = document.getElementById("reset-lines-btn");
+
+if (resetSliderBtn && slider) {
+  resetSliderBtn.addEventListener("click", () => {
+    const defaultValue = 500; // This is your desired reset value
+    slider.value = defaultValue;
+    appState.minValue = defaultValue;
+
+    // If you have a slider input listener that updates appState.minValue, you may want to trigger it:
+    slider.dispatchEvent(new CustomEvent("calciteSliderInput"));
+
+    // Redraw lines using the new minValue
+    const linesDrawn = drawLines(appState.allRelatedFeatures, appState.minValue, appState);
+    if (linesDrawn === 0) {
+      showSliderMessage("Move the slider lower to see lines drawn for this area.");
+    } else {
+      hideSliderMessage();
+    }
   });
 }
 

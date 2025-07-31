@@ -25,22 +25,22 @@ export function highlightFeature(feature, view, appState) {
   }
 
   // Highlight logic for FeatureLayer vs GraphicsLayer
+  let layerToHighlight = null;
   if (feature.layer && feature.layer.type === "feature") {
-    view.whenLayerView(feature.layer).then(layerView => {
+    layerToHighlight = feature.layer;
+  } else if (feature.layer && feature.layer.type === "graphics") {
+    // For custom graphics, determine which layer to use
+    if (feature.geometry.type === "polyline") {
+      layerToHighlight = appState.linesLayer;
+    } else if (feature.geometry.type === "point") {
+      layerToHighlight = appState.pointsLayer;
+    }
+  }
+
+  if (layerToHighlight) {
+    view.whenLayerView(layerToHighlight).then(layerView => {
       appState.highlightHandle = layerView.highlight(feature);
     });
-  } else if (feature.layer && feature.layer.type === "graphics") {
-    let graphicsLayer = null;
-    if (feature.geometry.type === "polyline") {
-      graphicsLayer = appState.linesLayer;
-    } else if (feature.geometry.type === "point") {
-      graphicsLayer = appState.pointsLayer;
-    }
-    if (graphicsLayer) {
-      view.whenLayerView(graphicsLayer).then(layerView => {
-        appState.highlightHandle = layerView.highlight(feature);
-      });
-    }
   }
 }
 
